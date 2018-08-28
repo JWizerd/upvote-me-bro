@@ -25,4 +25,4 @@ if( ! class_exists('UMB_Logger') ) :
 
     } // end class
 
-endif
+endif;

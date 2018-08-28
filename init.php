@@ -34,20 +34,22 @@ if( ! class_exists('Init_UMB') ) :
         /**
          * run the installation process for the plugin
          */
-        public function construct() 
+        public function initialize() 
         {
-            $install = new UMB_Install
+            $install = new UMB_Install;
 
             try {
                 $install->run();
             } catch (\Throwable $e) {
 
             } // end catch
+
         } // end fn
 
     } // end class
 
     //when you're ready to test the plugin
-    // new Init_UMB
+    $start = new Init_UMB;
+    $start->initialize();
 
-endif 
+endif;

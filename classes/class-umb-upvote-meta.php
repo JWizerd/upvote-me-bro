@@ -70,7 +70,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
          */
         protected function get($custom_post_type_name = null) {
             if (!empty($custom_post_type_name)) {
-                $upvotes = ( $this::META_TYPE, $object_id, $this::META_KEY, $unique );
+                $upvotes = get_metadata( $this::META_TYPE, $object_id, $this::META_KEY, $unique );
                 return !empty($upvotes) ? $upvotes : 0;
             } else {
                 $upvotes = get_post_meta( $this::META_TYPE, $object_id, $this::META_KEY);
@@ -106,7 +106,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
         {
             try {
                 foreach ($this->post_types as $post_type) {
-                    this->remove($post_type);
+                    $this->remove($post_type);
                 }
             } catch(\Throwable $e) {
 
@@ -116,4 +116,4 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
 
     } // end class
 
-endif
+endif;

@@ -12,9 +12,9 @@ if( ! class_exists('UMB_Install') ) :
          * 
          * @since  1.0
          */
-        public function init() 
+        public function run() 
         {
-            register_activation_hook( __FILE__, [$this, 'install_upvote_metadata']] );
+            register_activation_hook( __FILE__, [$this, 'install_upvote_metadata'] );
         } // end fn
 
 
@@ -39,4 +39,4 @@ if( ! class_exists('UMB_Install') ) :
 
     } // end class
 
-endif
+endif;

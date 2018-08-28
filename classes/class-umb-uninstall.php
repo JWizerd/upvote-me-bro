@@ -33,4 +33,4 @@ if( ! class_exists('UMB_Uninstall') ) :
 
     } // end class
 
-endif
+endif;

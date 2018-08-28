@@ -11,4 +11,4 @@ if( ! class_exists('UMB_Api') ) :
     class UMB_Api extends WP_REST_Controller
     {}
 
-endif
+endif;
