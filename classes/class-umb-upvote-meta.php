@@ -29,7 +29,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
          * used in update custom post type action
          *
          * @since  1.0
-         * @param an array of newly updated post types
+         * @param array of newly updated post types
          * probably generated using the wp fn get_post_types()
          */
         public function set_post_types(array $post_types) 
@@ -47,7 +47,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
          * there really isn't a need to use add_post_meta
          *
          * @since  1.0
-         * @param  custom post type name 
+         * @param  string custom post type name 
          */
         public function update($custom_post_type_name = null) 
         {
@@ -65,8 +65,8 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
          * get the current metadata value for upvotes on the post type
          *
          * @since  1.0
-         * @param  custom post type name 
-         * @return metadata upvote value
+         * @param  string custom post type name 
+         * @return int metadata upvote value
          */
         protected function get($custom_post_type_name = null) {
             if (!empty($custom_post_type_name)) {
