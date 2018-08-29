@@ -12,7 +12,9 @@ Domain Path: /lang
 
 /**
  * @todo  install autoloader for this plugin directory
- * @todo  build post meta class
+ * @todo  build post meta class, 
+ *        extend functions into api class, 
+ *        and create db operations for custom post type table generation
  * @todo  build install class
  * @todo  build uninstall class
  * @todo  build helper functions (if necessary)

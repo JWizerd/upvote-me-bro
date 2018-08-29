@@ -7,6 +7,32 @@ if( ! class_exists('UMB_Install') ) :
 
     class UMB_Install 
     {
+
+        private $post_ids;
+
+        /**
+         * on creation gather an list of ids for all post with the base post type
+         * 
+         */
+        public function __construct() 
+        {
+            $query = new WP_Query(
+                [
+                    'post_type' => 'post'
+                    'per_page' => -1
+                ]
+            );
+
+
+            $post_ids = array_map(function($post){
+                return $post->ID;
+            }, $query);
+
+            $this->post_ids = $post_ids;
+        }
+
+
+
         /**
          * initialize the proper hook for functionality upon activation of the plugin
          * 
@@ -31,7 +57,9 @@ if( ! class_exists('UMB_Install') ) :
             $metadata = new UMB_Upvote_Meta;
 
             try {
-                $metadata->update();
+                foreach ($this->post_ids as $post_id) {
+                    $metadata->update($post_id);
+                }
             } catch (\Throwable $e) {
                 (new UMB_Logger)->report($e->getMessage());
             } // end catch

@@ -14,14 +14,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
         const BASE_META_TYPE = 'post';
         const META_KEY = 'upvotes';
         private $post_types;
-
-        /**
-         * upon construction get the latest custom post types
-         */
-        public function __construct() {
-            $this->post_types = get_post_types();
-        } // end fn
-
+        
 
 
         /**
@@ -47,15 +40,16 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
          * there really isn't a need to use add_post_meta
          *
          * @since  1.0
+         * @param  int post_id / object_id of the post type
          * @param  string custom post type name 
          */
-        public function update($custom_post_type_name = null) 
+        public function update($post_id, $custom_post_type_name = null) 
         {
             if (!empty($custom_post_type_name)) {
-                $upvotes = $this->get($custom_post_type_name);
-                update_metadata( $custom_post_type_name, $object_id, $this::META_KEY, $upvotes );
+                $upvotes = (int) $this->get($custom_post_type_name);
+                update_metadata( $custom_post_type_name, $object_id, $this::META_KEY, $upvotes++ );
             } else {
-                update_post_meta( $this::BASE_META_TYPE, $object_id, $this::META_KEY, $upvotes );
+                update_post_meta( $this::BASE_META_TYPE, $object_id, $this::META_KEY, $upvotes++ );
             } // endif
         } // end fn
 
@@ -65,13 +59,14 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
          * get the current metadata value for upvotes on the post type
          *
          * @since  1.0
+         * @param  int post_id / object_id of the post type
          * @param  string custom post type name 
          * @return int metadata upvote value
          */
-        protected function get($custom_post_type_name = null) {
+        protected function get($post_id, $custom_post_type_name = null) {
             if (!empty($custom_post_type_name)) {
                 try {
-                    $upvotes = get_metadata( $this::META_TYPE, $object_id, $this::META_KEY, $unique );
+                    $upvotes = get_metadata( $custom_post_type_name, $object_id, $this::META_KEY, $unique );
                     return !empty($upvotes) ? $upvotes : 0;
                 } catch (\Throwable $e) {
                     (new UMB_Logger)->report($e->getMessage());
@@ -95,9 +90,10 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
          * with a post type.
          *
          * @since  1.0
-         *
+         * @param  int post_id / object_id of the post type
+         * @param  string the post type
          */
-        protected function remove($post_type) 
+        protected function remove($post_id, $post_type) 
         {
             if (!empty($custom_post_type_name)) {
                 try {
@@ -118,7 +114,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
         {
             try {
                 foreach ($this->post_types as $post_type) {
-                    $this->remove($post_type);
+                    $this->remove($post_id, $post_type);
                 }
             } catch(\Throwable $e) {
                 (new UMB_Logger)->report($e->getMessage());
