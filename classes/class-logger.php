@@ -13,7 +13,7 @@ if( ! class_exists('UMB_Logger') ) :
          * @param  
          * @since 1.0
          */
-        public static function report($msg) 
+        public function report($msg) 
         {
             try {
 
