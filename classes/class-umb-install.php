@@ -33,7 +33,7 @@ if( ! class_exists('UMB_Install') ) :
             try {
                 $metadata->update();
             } catch (\Throwable $e) {
-
+                (new UMB_Logger)->report($e->getMessage());
             } // end catch
         } // end fn
 

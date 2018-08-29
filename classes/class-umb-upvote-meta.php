@@ -70,11 +70,19 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
          */
         protected function get($custom_post_type_name = null) {
             if (!empty($custom_post_type_name)) {
-                $upvotes = get_metadata( $this::META_TYPE, $object_id, $this::META_KEY, $unique );
-                return !empty($upvotes) ? $upvotes : 0;
+                try {
+                    $upvotes = get_metadata( $this::META_TYPE, $object_id, $this::META_KEY, $unique );
+                    return !empty($upvotes) ? $upvotes : 0;
+                } catch (\Throwable $e) {
+                    (new UMB_Logger)->report($e->getMessage());
+                }
             } else {
-                $upvotes = get_post_meta( $this::META_TYPE, $object_id, $this::META_KEY);
-                return !empty($upvotes) ? $upvotes : 0;
+                try {
+                    $upvotes = get_post_meta( $this::META_TYPE, $object_id, $this::META_KEY);
+                    return !empty($upvotes) ? $upvotes : 0;
+                } catch(\Throwable $e) {
+                    (new UMB_Logger)->report($e->getMessage());   
+                }
             } // endif
         } // end fn
 
@@ -92,7 +100,11 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
         protected function remove($post_type) 
         {
             if (!empty($custom_post_type_name)) {
-                delete_metadata ( $this::META_TYPE, $object_id, $this::META_KEY, null, true);
+                try {
+                    delete_metadata ( $this::META_TYPE, $object_id, $this::META_KEY, null, true);
+                } catch (\Throwable $e) {
+                    (new UMB_Logger)->report($e->getMessage());
+                }
             }
         } // end fn
 
@@ -109,7 +121,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
                     $this->remove($post_type);
                 }
             } catch(\Throwable $e) {
-
+                (new UMB_Logger)->report($e->getMessage());
             } // end catch
         } // end fn
 

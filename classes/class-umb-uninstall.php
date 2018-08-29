@@ -27,7 +27,7 @@ if( ! class_exists('UMB_Uninstall') ) :
             try {
                 $metadata->remove_all();
             } catch (\Throwable $e) {
-
+                (new UMB_Logger)->report($e->getMessage());
             } // end catch
         } // end fn
 
