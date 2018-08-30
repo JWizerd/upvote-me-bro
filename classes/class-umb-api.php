@@ -4,18 +4,31 @@
  *
  * @since  1.0
  * @author  Jeremiah Wodke
+ * @link( http://v2.wp-api.org/extending/modifying/#what-register_rest_field-does, register_rest_field )
  */
 
 if( ! class_exists('UMB_Api') ) :
 
     class UMB_Api extends WP_REST_Controller
     {
+        /**
+         * install the custom endpoints into the post rest api endpoint
+         *
+         * @since  1.0
+         * 
+         */
         public function init() 
         {
             add_action( 'rest_api_init', [$this, 'register_upvotes'] );
         }
 
-        function register_upvotes() {
+        /**
+         * register the upvotes operations to the post endpoint
+         *
+         * @since  1.0
+         *
+         */
+        public function register_upvotes() {
             register_rest_field( 'post',
                 'starship',
                 [
@@ -33,9 +46,9 @@ if( ! class_exists('UMB_Api') ) :
          * @param string $field_name Name of field.
          * @param WP_REST_Request $request Current request
          *
-         * @return mixed
+         * @return int upvotes post meta
          */
-        function get_upvotes($post_id, $request) {
+        public function get_upvotes($post_id) {
 
             return (new UMB_Upvote_Meta)->get($post_id);
 
@@ -53,7 +66,7 @@ if( ! class_exists('UMB_Api') ) :
          *
          * @return bool|int
          */
-        function update_upvotes($post_id, $request) {
+        public function update_upvotes($post_id) {
 
             return (new UMB_Upvote_Meta)->update($post_id, $value);
 
