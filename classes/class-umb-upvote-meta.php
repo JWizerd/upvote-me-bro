@@ -13,6 +13,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
 
         const BASE_META_TYPE = 'post';
         const META_KEY = 'upvotes';
+        
 
 
         /**
