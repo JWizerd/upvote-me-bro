@@ -42,7 +42,7 @@ if( ! class_exists('Init_UMB') ) :
 
             try {
                 $install->run();
-            } catch (\Throwable $e) {
+            } catch (\Exception $e) {
 
             } // end catch
 

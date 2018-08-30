@@ -49,7 +49,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
             try {
                 $upvotes = get_post_meta( $this::META_TYPE, $object_id, true);
                 return !empty($upvotes) ? $upvotes : 0;
-            } catch(\Throwable $e) {
+            } catch(\Exception $e) {
                 (new UMB_Logger)->report($e->getMessage());   
             }
         } // end fn
@@ -70,7 +70,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
         {
             try {
                 delete_post_data ( $object_id, $this::META_KEY);
-            } catch (\Throwable $e) {
+            } catch (\Exception $e) {
                 (new UMB_Logger)->report($e->getMessage());
             }
         } // end fn
@@ -87,7 +87,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
                 foreach ($this->post_ids as $post_id) {
                     $this->remove($post_id);
                 }
-            } catch(\Throwable $e) {
+            } catch(\Exception $e) {
                 (new UMB_Logger)->report($e->getMessage());
             } // end catch
         } // end fn

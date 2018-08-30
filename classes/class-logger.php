@@ -28,7 +28,7 @@ if( ! class_exists('UMB_Logger') ) :
 
                 file_put_contents($this::FILE, $jsondata);
 
-            } catch (\Throwable $e) {
+            } catch (\Exception $e) {
 
                 echo "error logging to file: {$e->getMessage()}";
 
