@@ -9,6 +9,8 @@
 
 if( ! class_exists('UMB_Api') ) :
 
+    require_once('class-logger.php');
+
     class UMB_Api
     {
         /**
@@ -20,7 +22,11 @@ if( ! class_exists('UMB_Api') ) :
         public function init() 
         {
             add_action( 'rest_api_init', [$this, 'register_upvotes'] );
-            exit('stupid');
+            // try {
+            //     add_action( 'rest_api_init', [$this, 'register_upvotes'] );
+            // } catch (\Exception $e) {
+            //     (new UMB_Logger)->report($e->getMessage());
+            // }
         }
 
         /**
@@ -30,6 +36,7 @@ if( ! class_exists('UMB_Api') ) :
          *
          */
         public function register_upvotes() {
+
             register_rest_field( 
                 'post',
                 'upvotes',
@@ -39,6 +46,7 @@ if( ! class_exists('UMB_Api') ) :
                     'schema'          => null
                 ]
             );
+
         }
 
         /**

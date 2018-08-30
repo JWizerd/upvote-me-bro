@@ -8,24 +8,13 @@ if( ! class_exists('UMB_Install') ) :
     class UMB_Install 
     {
         /**
-         * on creation gather an list of ids for all post with the base post type
-         * 
-         */
-        public function __construct() 
-        {
-
-        }
-
-
-
-        /**
          * initialize the proper hook for functionality upon activation of the plugin
          * 
          * @since  1.0
          */
         public function run() 
         {
-            register_activation_hook( __FILE__, [$this, 'install_upvote_metadata'] );
+            $this->install_upvote_metadata();
         } // end fn
 
 
