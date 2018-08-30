@@ -9,7 +9,7 @@
 
 if( ! class_exists('UMB_Api') ) :
 
-    class UMB_Api extends WP_REST_Controller
+    class UMB_Api
     {
         /**
          * install the custom endpoints into the post rest api endpoint
@@ -20,6 +20,7 @@ if( ! class_exists('UMB_Api') ) :
         public function init() 
         {
             add_action( 'rest_api_init', [$this, 'register_upvotes'] );
+            exit('stupid');
         }
 
         /**
@@ -29,11 +30,12 @@ if( ! class_exists('UMB_Api') ) :
          *
          */
         public function register_upvotes() {
-            register_rest_field( 'post',
-                'starship',
+            register_rest_field( 
+                'post',
+                'upvotes',
                 [
-                    'get_callback'    => 'get_upvotes',
-                    'update_callback' => 'update_upvotes',
+                    'get_callback'    => [$this, 'get_upvotes'],
+                    'update_callback' => [$this, 'update_upvotes'],
                     'schema'          => null
                 ]
             );

@@ -38,12 +38,11 @@ if( ! class_exists('Init_UMB') ) :
          */
         public function initialize() 
         {
-            $install = new UMB_Install;
-
             try {
+                $install = new UMB_Install;
                 $install->run();
             } catch (\Exception $e) {
-
+                (new UMB_Logger)->report($e->getMessage());
             } // end catch
 
         } // end fn

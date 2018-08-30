@@ -38,11 +38,11 @@ if( ! class_exists('UMB_Install') ) :
          * @since 1.0
          */
         public function install_upvote_metadata()
-        {
+        {   
             try {
                 (new UMB_Api)->init();
             } catch (\Exception $e) {
-                (new UMB_Logger)->log($e->getMessage());
+                (new UMB_Logger)->report($e->getMessage());
             }
             
         } // end fn
