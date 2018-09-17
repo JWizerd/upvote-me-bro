@@ -14,7 +14,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
         const BASE_META_TYPE = 'post';
         const META_KEY = 'upvotes';
         
-
+        
 
         /**
          * update the metadata for a post with the upvote property
@@ -46,9 +46,9 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
          * @param  int id of post
          * @return int metadata upvote value
          */
-        protected function get($post_id) {
+        public function get($post_id) {
             try {
-                $upvotes = get_post_meta( $this::META_TYPE, $object_id, true);
+                $upvotes = get_post_meta( $this::BASE_META_TYPE, $object_id, true);
                 return !empty($upvotes) ? $upvotes : 0;
             } catch(\Exception $e) {
                 (new UMB_Logger)->report($e->getMessage());   
@@ -67,7 +67,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
          * @param  int post_id / object_id of the post type
          * @param  string the post type
          */
-        protected function remove($post_id, $post_type) 
+        public function remove($post_id, $post_type) 
         {
             try {
                 delete_post_data ( $object_id, $this::META_KEY);
@@ -82,7 +82,7 @@ if( ! class_exists('UMB_Upvote_Meta') ) :
          * remove upvote system from all post types
          * @since  1.0
          */
-        protected function remove_all() 
+        public function remove_all() 
         {
             try {
                 foreach ($this->post_ids as $post_id) {

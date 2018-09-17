@@ -33,26 +33,13 @@ if( ! class_exists('Init_UMB') ) :
     class Init_UMB
     {
         /**
-         * run the installation process for the plugin
-         */
-        public function initialize() 
-        {
-            try {
-                register_activation_hook( __FILE__, [$this, 'install_upvote_metadata'] );
-            } catch (\Exception $e) {
-                (new UMB_Logger)->report($e->getMessage());
-            } // end catch
-
-        } // end fn
-
-        /**
          * install upvote on only the base post type 
          * if users want to add the system to a custom post type
          * they have to do that manually
          * 
          * @since 1.0
          */
-        public function install_upvote_metadata()
+        public function init()
         {   
             try {
                 (new UMB_Api)->init();
@@ -64,8 +51,6 @@ if( ! class_exists('Init_UMB') ) :
 
     } // end class
 
-    //when you're ready to test the plugin
-    $start = new Init_UMB;
-    $start->initialize();
+    add_action( 'plugins_loaded', ['Init_UMB', 'init']);
 
 endif;
