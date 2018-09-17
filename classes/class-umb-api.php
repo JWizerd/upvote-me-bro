@@ -23,29 +23,28 @@ if( ! class_exists('UMB_Api') ) :
         {
             add_action( 'rest_api_init', [$this, 'register_upvotes'] );
 
-            // Compatibility with the REST API v2 beta 9+
-            if ( function_exists( 'register_rest_field' ) ) {
-                register_rest_field( 'post',
-                    'upvotes',
-                    [
-                        'get_callback' => [$this, 'get_upvotes'],
-                        'schema'       => null,
-                    ]
-                );
-            } elseif ( function_exists( 'register_api_field' ) ) {
-                register_api_field( 'post',
-                    'upvotes',
-                    [
-                        'get_callback' => [$this, 'update_upvotes'],
-                        'schema'       => null,
-                    ]
-                );
+            try {
+                // Compatibility with the REST API v2 beta 9+
+                if ( function_exists( 'register_rest_field' ) ) {
+                    register_rest_field( 'post',
+                        'upvotes',
+                        [
+                            'get_callback' => [$this, 'get_upvotes'],
+                            'schema'       => null,
+                        ]
+                    );
+                } elseif ( function_exists( 'register_api_field' ) ) {
+                    register_api_field( 'post',
+                        'upvotes',
+                        [
+                            'get_callback' => [$this, 'update_upvotes'],
+                            'schema'       => null,
+                        ]
+                    );
+                }
+            } catch(\Exception $e) {
+                (new UMB_Logger)->report($e->getMessage());   
             }
-            // try {
-            //     add_action( 'rest_api_init', [$this, 'register_upvotes'] );
-            // } catch (\Exception $e) {
-            //     (new UMB_Logger)->report($e->getMessage());
-            // }
         }
 
         /**
